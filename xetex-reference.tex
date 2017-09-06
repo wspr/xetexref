@@ -283,12 +283,12 @@ Varying depending on the language and script in use (see
 exist, will be activated by default.
 
 \begin{example}
-\font\antt="Antykwa Torunska"         at 12pt \antt 0
-\font\antt="Antykwa Torunska:+aalt=0" at 12pt \antt 0
-\font\antt="Antykwa Torunska:+aalt=1" at 12pt \antt 0
-\font\antt="Antykwa Torunska:+aalt=2" at 12pt \antt 0
-\font\antt="Antykwa Torunska:+aalt=3" at 12pt \antt 0
-\font\antt="Antykwa Torunska:+aalt=4" at 12pt \antt 0
+\font\antt="[AntykwaTorunska-Regular.otf]"         at 12pt \antt 0
+\font\antt="[AntykwaTorunska-Regular.otf]:+aalt=0" at 12pt \antt 0
+\font\antt="[AntykwaTorunska-Regular.otf]:+aalt=1" at 12pt \antt 0
+\font\antt="[AntykwaTorunska-Regular.otf]:+aalt=2" at 12pt \antt 0
+\font\antt="[AntykwaTorunska-Regular.otf]:+aalt=3" at 12pt \antt 0
+\font\antt="[AntykwaTorunska-Regular.otf]:+aalt=4" at 12pt \antt 0
 \end{example}
 
 AAT font features and Graphite font features are specified by strings
@@ -1167,7 +1167,7 @@ suppressed and the font control sequence being defined is set to
 \suppressfontnotfounderror=1
 \font\x="ImpossibleFont" at 10pt
 \ifx\x\nullfont
-  \font\x="Georgia" at 10pt
+  \font\x="[texgyrepagella-regular.otf]" at 10pt
 \fi
 \x This would be ‘ImpossibleFont’, if it existed.
 \end{example}
