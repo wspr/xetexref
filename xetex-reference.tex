@@ -25,10 +25,24 @@
 \def\@dotsep{999}
 
 \usepackage{fontspec,unicode-math}
-\setmainfont[Scale=MatchLowercase]{TeX Gyre Pagella}
-\setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}
-\setmonofont[Scale=MatchLowercase, AutoFakeSlant=.2]{Inconsolata}
-\setmathfont{TeX Gyre Pagella Math}
+\setmainfont{texgyrepagella}[
+    Extension      = .otf ,
+    UprightFont    = *-regular ,
+    ItalicFont     = *-italic ,
+    BoldFont       = *-bold ,
+    BoldItalicFont = *-bolditalic ,
+    Scale=MatchLowercase
+  ]
+\setsansfont{texgyreheros}[
+    Extension      = .otf ,
+    UprightFont    = *-regular ,
+    ItalicFont     = *-italic ,
+    BoldFont       = *-bold ,
+    BoldItalicFont = *-bolditalic ,
+    Scale=MatchLowercase
+  ]
+\setmonofont{inconsolata}[Scale=MatchLowercase, AutoFakeSlant=.2]
+\setmathfont{texgyrepagella-math.otf}
 
 \usepackage{calc,fancyvrb,hyperref,refstyle,varioref,xcolor,hologo,xspace}
 \usepackage{geometry}
