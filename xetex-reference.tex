@@ -232,10 +232,8 @@ the square brackets. \Eg,
 
 \subsection{Font options}
 
-\xarg{Font options} are only applicable when the font is selected
-through the operating system (\ie, without square brackets).  They may
-be any concatenation of the following:
-
+The following \xarg{font options} are only applicable when the font is selected
+through the operating system (\ie, without square brackets):
 \begin{optdesc}
 \item[/B] Use the bold version of the selected font.
 \item[/I] Use the italic version of the selected font.
@@ -243,6 +241,10 @@ be any concatenation of the following:
 \item[/IB] Same as \texttt{/BI}.
 \item[/S=$x$] Use the version of the selected font corresponding to the
 optical size $x$\,pt.
+\end{optdesc}
+
+The following \xarg{font options} control which `renderer' \xetex uses to interface with the font:
+\begin{optdesc}
 \item[/AAT] Explicitly use the AAT renderer (Mac~OS~X only).
 \item[/OT] Explicitly use the OpenType renderer (new in 0.9999).
 \item[/GR] Explicitly use the Graphite renderer.%
