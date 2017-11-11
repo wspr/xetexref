@@ -1,4 +1,4 @@
-% Copyright 2007-2011 Will Robertson
+% Copyright 2007-2017 Will Robertson
 % Copyright 2011 Karl Berry
 % Copyright 2013 Khaled Hosny
 %
@@ -12,7 +12,7 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 %
-% The Current Maintainer of this work is Khaled Hosny.
+% The Current Maintainer of this work is Will Robertson.
 %
 % This work consists of the files xetex-reference.tex,
 % README.txt, and the derived file xetex-reference.pdf.
@@ -64,7 +64,7 @@
   linkcolor=black,
   urlcolor=black,
   pdfsubject={The XeTeX reference guide},
-  pdfauthor={Will Robertson \& Khaled Hosny},
+  pdfauthor={Will Robertson \& Khaled Hosny \& Karl Berry},
   pdfkeywords={xetex, tex, typesetting, unicode, math, opentype, graphite, aat}
 }
 
@@ -144,13 +144,16 @@
 \section*{Introduction}
 
 This document serves to summarise additional features of \xetex without
-being so much as a ‘users’ guide. Note that much of the functionality
+being so much as a ‘users’ guide. Much of the functionality
 addressed here is provided in abstracted form in various \latex
 packages and \context modules.
 
 The descriptions here should be a fairly exhaustive list of the new
-primitives and features of \xetex. Descriptions are still a little
+primitives and features of \xetex. Descriptions are still rather
 aenemic, however.
+
+Home on the web:
+\url{https://ctan.org/pkg/xetexref}.
 
 \section*{License}
 
@@ -174,30 +177,58 @@ information.
 \section{The \cs{font} command}
 
 Traditionally, fonts were selected in \tex like this:
-|\font\1=|\xarg{tfm name} with various options possibly appended
-% harder to read without the extra space
-such as \ ‘| at 10pt|’ \ or \ ‘| scaled 1.2|’, with obvious meaning. This syntax
-still works, but it has been greatly extended in \xetex.
+|\font\1=|\xarg{tfm name} \xarg{\tex font options}, where the \xarg{\tex
+font options} included possibilities such as 
+\ ‘| at 10pt|’ \ 
+or \ ‘| scaled 1200|’,
+with evident meaning. This syntax still works, but it has been greatly
+extended in \xetex.
 
 The extended syntax looks schematically like this:
 
-{\centering
- |\font\1="|\xarg{font identifier}\xarg{font options}|:|\xarg{font features}|"|
- \xarg{\tex font options}\par}
+\begin{quote}
+ |\font\1="|\xarg{font identifier}
+              \xarg{font options}%
+              |:|\xarg{font features}%
+         |"|\ \xarg{\tex font options}
+\end{quote}
 
-\noindent The \xarg{font identifier} is the only mandatory part of the
+\noindent Each part of this command is discussed in the following, but
+here is an overview, starting from the end:
+
+\begin{itemize}
+\item The \xarg{\tex font options} are unchanged from traditional \tex.
+
+\item The ASCII double quote character |"| (hex 0x22) surrounds any font
+definition using the extended syntax.
+
+\item The \xarg{font features} are an optional list of names,
+comma or semi-colon separated, preceded by an ASCII colon |:| (0x3a).
+
+\item The \xarg{font options} are an optional list of specifiers which
+can only be used with system fonts (see next).
+
+\item The \xarg{font identifier} is the only mandatory part of the
 above syntax.  If it is given in square brackets, (e.g.,
-|[lmroman10-regular]|), it is taken as a font file name.
-Without brackets, the name is looked up both as a file name and a system
+|\font\1="[lmroman10-regular]"|), it is taken as a font file name.
+Without brackets, the name is looked up as both a file name and a system
 font name.
-When using a font name, the font is looked up through the operating
-system, using (except on Mac~OS~X) the |fontconfig| library.  Running
-|fc-list| should show you the font names available.  \Eg,
+
+\end{itemize}
+
+This distinction between file name lookups and system font name lookups
+is crucial to understanding \xetex's behavior and to writing portable
+documents (in short: don't use system fonts).
+
+System font name lookups use (except on Mac~OS~X) the
+|fontconfig| library; running |fc-list| should show you the font names
+available.  \Eg,
 \begin{quote}\small
 |\font\1="Liberation Serif"| \hfill \emph{look for OS-installed font}
 \end{quote}
 
-Fonts have many internal names, and XeTeX matches them in the following order:
+Fonts have many internal names, and XeTeX does the system font lookups
+in the following order:
 \vskip1ex
 \begin{itemize}
   \item Full Name;
@@ -216,23 +247,28 @@ default). The current directory and the |texmf| trees are searched for
 files matching the name, or the path may be embedded in the font
 declaration, as usual with |kpathsea|. \Eg,
 \begin{quote}\small
-|\font\2="[lmroman10-regular]"| \hfill
+|\font\1="[lmroman10-regular]"| \hfill
   {\em find |lmroman10-regular.otf| in any tree}
-|\font\3="[/myfonts/fp9r8a]"| \hfill
+|\font\2="[/myfonts/fp9r8a]"| \hfill
   {\em look for |fp9r8a| only in |/myfonts/|}
 \end{quote}
 
 A file with either an |.otf|, |.ttf| or |.pfb| extension (in that order) will be found.  The
 extension can also be specified explicitly.
-If the file is a font collection (e.g., |.ttc| or |.dfont|), the index of the
-font can be specified using a colon followed by zero-based font index inside
-the square brackets. \Eg,
+
+\subsection{Font collection files}
+
+One more special case about the \xarg{font identifier}: if the file is a
+font collection (e.g., |.ttc| or |.dfont|), the index of the font can be
+specified using a colon followed by zero-based font index inside the
+square brackets (in contrast to the font features we'll describe soon,
+which follow a colon outside any square brackets). \Eg,
 \begin{quote}\small
-|\font\4="[myfont.ttc:1]"| \hfill {\em load the second font from |myfont.ttc| file}
+|\font\2="[myfont.ttc:1]"| \hfill {\em load the second font from |myfont.ttc| file}
 \end{quote}
 
 
-\subsection{Font options}
+\subsection{Font options: For OS-selected fonts only}
 
 The following \xarg{font options} are only applicable when the font is selected
 through the operating system (\ie, without square brackets):
@@ -255,7 +291,7 @@ The following \xarg{font options} control which `renderer' \xetex uses to interf
 \end{optdesc}
 
 
-\subsection{Font features}
+\subsection{Font features: For all fonts}
 
 The \xarg{font features} is a comma or semi-colon separated list
 activating or deactivating various OpenType, Graphite, or AAT font
@@ -263,12 +299,13 @@ features, which will vary by font.  In contrast to font options,
 features work whether the font is selected by file name or through the
 operating system.
 
-The \xetex documentation files \path{aat-info.tex} and
-\path{opentype-info.tex} provide per-font lists of supported features.
+The \xetex utility files \path{aat-info.tex} and
+\path{opentype-info.tex} provide lists of supported features for a given
+font (see comments at the top of each).
 
-\subsubsection{Arbitrary OpenType, Graphite, or AAT features}
+\subsubsection{Font features specific to OpenType, Graphite, or AAT}
 
-OpenType font features are chosen with
+OpenType font features are usually chosen with
 \hlink{http://www.microsoft.com/typography/otspec/featuretags.htm}{standard
 tags}. They may be either comma- or semicolon-separated, and prefixed
 with a |+| to turn them on and a |-| to turn them off, optionally followed
@@ -282,7 +319,7 @@ alternates features (ignored for |-| prefixed tags).
 
 Varying depending on the language and script in use (see
 \secref[vref]{script}), a small number of OpenType features, if they
-exist, will be activated by default.
+exist, may be activated by default.
 
 \begin{example}
 \font\antt="[AntykwaTorunska-Regular.otf]"         at 12pt \antt 0
@@ -302,20 +339,25 @@ equivalent features between different fonts can have different names.
 \gra This is the Graphite font Charis SIL with small caps.
 \end{example}
 
-\subsubsection{Options for all fonts}
+\subsubsection{Features for all fonts}
 
 Some font features may be applied for any font. These are
 \begin{optdesc}
 \item[mapping=\textsl{<font map>}] 
 Uses the specified font mapping for this font. This uses the TECKit
-engine to transform unicode characters in the last-minute processing
+engine to transform Unicode characters in the last-minute processing
 stage of the source. For example, |mapping=tex-text| will enable the
-classical mappings from ugly ascii |``---''| to proper typographical
+classical mappings from ASCII |``---''| to proper typographical
 glyphs “—”, and so on.
 
 \item[color={\slshape RRGGBB}{[{\slshape TT}]}] 
 Triple pair of hex values to specify the colour in RGB space, with an
 optional value for the transparency.
+
+\begin{example}
+\font\9="[lmsans10-regular]:color=0000FF,mapping=tex-text"
+\9 A sans blue quoted em-dash: ``---''.
+\end{example}
 
 \item[letterspace=$x$] 
 Adds $x/S$ space between letters in words, where $S$ is the font size.
@@ -452,12 +494,12 @@ font.}
 \begin{example}
 \font\1="Charis SIL"\1
 The glyph slot in Charis SIL for the Yen symbol is:
-    \the\XeTeXglyphindex"yen" . % the font-specific glyph name
-Or: \the\XeTeXcharglyph"00A5.   % the unicode character slot
+    \the\XeTeXglyphindex"yen" . % font-specific glyph name
+Or: \the\XeTeXcharglyph"00A5.   % unicode character slot
 
 This glyph may be typeset with the font-specific glyph slot:
 \XeTeXglyph150, 
-or the unicode character slot:
+or the Unicode character slot:
 \char"00A5.
 \end{example}
 
@@ -1188,16 +1230,22 @@ suppressed and the font control sequence being defined is set to
 \section{Misc.}
 
 \cmd|\XeTeXversion|
-\desc{Expands to a number corresponding to the \xetex version.}
+\desc{Expands to a number corresponding to the \xetex version:
+      \the\XeTeXversion.}
 \endcmd
 
 \cmd|\XeTeXrevision|
-\desc{Expands to a string corresponding to the \xetex revision number.}
+\desc{Expands to a string corresponding to the \xetex revision number:
+      \XeTeXrevision.}
 \endcmd
 
 \begin{example}
 The \xetex version used to typeset this document is:
 \the\XeTeXversion\XeTeXrevision
 \end{example}
+
+
+To conclude: for bug reporting, patches (please), and any other
+discussion, please see \url{https://ctan.org/pkg/xetexref}.
 
 \end{document}
