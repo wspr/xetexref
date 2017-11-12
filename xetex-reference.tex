@@ -45,7 +45,10 @@
     BoldItalicFont = *-bolditalic ,
     Scale=MatchLowercase
   ]
-\setmonofont{inconsolata}[Scale=MatchLowercase, AutoFakeSlant=.2]
+\setmonofont{inconsolata}[
+  Scale=MatchLowercase,
+  StylisticSet=3, % <- straight quotes
+  AutoFakeSlant=.2]
 \setmathfont{texgyrepagella-math.otf}
 
 \usepackage{calc,fancyvrb,hyperref,refstyle,varioref,xcolor,hologo,xspace}
