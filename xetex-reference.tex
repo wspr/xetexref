@@ -126,7 +126,7 @@
 \let\strong\textbf
 \newcommand\hlink[2]{\href{#1}{#2}\footnote{\url{#1}}}
 
-\let\latin\textit
+\let\latin\relax % let existing font continue
 \def\eg{\latin{e.g.}}
 \def\ie{\latin{i.e.}}
 \def\Eg{\latin{E.g.}}
@@ -212,7 +212,7 @@ comma or semi-colon separated, preceded by an ASCII colon |:| (0x3a).
 can only be used with system fonts (see next).
 
 \item The \xarg{font identifier} is the only mandatory part of the
-above syntax.  If it is given in square brackets, (e.g.,
+above syntax.  If it is given in square brackets, (\eg,
 |\font\1="[lmroman10-regular]"|), it is taken as a font file name.
 Without brackets, the name is looked up as both a file name and a system
 font name.
@@ -262,7 +262,7 @@ extension can also be specified explicitly.
 \subsection{Font collection files}
 
 One more special case about the \xarg{font identifier}: if the file is a
-font collection (e.g., |.ttc| or |.dfont|), the index of the font can be
+font collection (\eg, |.ttc| or |.dfont|), the index of the font can be
 specified using a colon followed by zero-based font index inside the
 square brackets (in contrast to the font features we'll describe soon,
 which follow a colon outside any square brackets). \Eg,
@@ -371,7 +371,7 @@ letters look ‘more bold’). $x=0$ corresponds to no change; $x=1.5$ is a
 good default value.
 
 \item[extend=$x$]
-Stretch each glyph horizontally by a factor of $x$ (i.e., $x=1$
+Stretch each glyph horizontally by a factor of $x$ (\ie, $x=1$
 corresponds to no change).
 
 \item[slant=$x$]
@@ -824,7 +824,7 @@ number of the \xarg{char slot} if no assignment is given.}
 \opteq
 \xarg{type/fam./glyph slot}
 \desc{Defines a control sequence for accessing a maths glyph using the
-‘bit-packed’ number output by, e.g., \cs{Umathcodenum}. This would
+‘bit-packed’ number output by, \eg, \cs{Umathcodenum}. This would
 be used to replace legacy code such as
 \cs{mathchardef}\cs{foo}\texttt{=}\cs{mathcode}\texttt{`}\cs{\-}.}
 \endcmd
@@ -1158,15 +1158,18 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 \end{example}
 
 \cmd|\ifprimitive| \xarg{control sequence} |...(\else...)\fi|
-\desc{\tex conditional to test if a control sequence is a primitive and
-that it has not been redefined.}
+\desc{\tex conditional to test if a control sequence is a primitive
+which still has its primitive meaning, \ie, has not been redefined or
+undefined.}
 \endcmd
 
 \cmd|\primitive|
 \xarg{control sequence}
-\desc{If the control sequence is a primitive that’s been redefined, this
-command causes it to expand with its original (i.e., primitive)
-definition.}
+\desc{This command executes the primitive meaning of the following control
+sequence, regardless of whether the control sequence has been redefined
+or made undefined.  If the primitive was expandable, \cmd|\primitive| expands
+also.  On the other hand, if the control sequence never was a primitive,
+nothing happens and no error is raised.}
 \endcmd
 
 \cmd|\shellescape|
