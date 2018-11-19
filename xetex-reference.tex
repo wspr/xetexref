@@ -1206,6 +1206,70 @@ Therefore, |\a| is greater than |\z|: \strcmp{\a}{\z}
 Also note that catcodes are ignored: \strcmp{b}{\b}
 \end{example}
 
+\cmd|\normaldeviate|
+\xarg{number}
+\desc{Generate a normally-distributed random integer with a mean of $0$ and
+standard deviation $65\,536$. That is, about $68$\% of the time, the result
+will be between $−65\,536$ and $65\,536$ (one standard deviation away from
+the mean). About $95\%$ of results will be within two standard deviations, and
+$99.7$\% within three.}
+\endcmd
+
+\cmd|\uniformdeviate|
+\xarg{number}
+\desc{Generate a uniformly-distributed random integer value between $0$
+(inclusive) and ⟨number⟩ (exclusive).}
+\endcmd
+
+\cmd|\randomseed|
+\desc{A read-only integer which allows querying of the random seed.}
+\endcmd
+
+\cmd|\setrandomseed|
+\xarg{number}
+\desc{Set the random seed to a specific value, allowing you to replay
+sequences of semi-randoms at a later moment.}
+\endcmd
+
+\cmd|\elapsedtime|
+\desc{Return a number that represents the time elapsed from the moment of
+the start of the run or the last point at which the timer was reset.
+The elapsed time is returned in `scaled seconds', meaning seconds divided by
+$65\,536$. If the time exceeds $32\,767$ seconds, the constant value
+$2^{31} − 1$ will be returned.}
+\endcmd
+
+\cmd|\resettimer|
+\desc{Reset the internal timer to $0$.}
+\endcmd
+
+\cmd|\filedump|
+\texttt{[offset]} \xargs{number}
+\texttt{[length]} \xargs{number}
+\xarg{file}
+\desc{Expands to a hexadecimal dump of the contents of the file, starting
+from position zero and extending to the end of the file unless either an
+offset or length are given.}
+\endcmd
+
+\cmd|\filemoddate|
+\xarg{file name}
+\desc{Expands to the date the file was last modified in the format
+\texttt{D:YYYYMMDDHHMMSS+ZZZZ} as a string.}
+\endcmd
+
+\cmd|\filesize|
+\xarg{file name}
+\desc{Expands to the size of the file in bytes.}
+\endcmd
+
+\cmd|\mdfivesum|
+\texttt{[file]}
+\xarg{text}
+\desc{Expands to the MD5 sum of the \meta{text}, or if the \texttt{file}
+keyword is given, the MD5 sum of the file contents.}
+\endcmd
+
 \cmd|\suppressfontnotfounderror|
 \xarg{integer}
 \desc{When set to zero (default) if a font is loaded that cannot be
