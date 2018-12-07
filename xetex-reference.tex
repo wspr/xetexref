@@ -19,9 +19,9 @@
 
 \documentclass[12pt]{article}
 
-\title{The \xetex reference guide}
+\title{The \xetex reference guide\\\url{https://ctan.org/pkg/xetexref}}
 \author{Will Robertson \and Khaled Hosny \and Karl Berry}
-\date{2017-09-07}
+\date{2018-12-07}
 
 \suppressfontnotfounderror=1
 
@@ -156,9 +156,6 @@ The descriptions here should be a fairly exhaustive list of the new
 primitives and features of \xetex. Descriptions are still rather
 aenemic, however.
 
-Home on the web:
-\url{https://ctan.org/pkg/xetexref}.
-
 \section*{License}
 
 This work, is distributed under the terms of the LaTeX Project Public License
@@ -175,8 +172,6 @@ information.
 
 \newpage
 \tableofcontents
-
-\part{\xetex specifics}
 
 \section{The \cs{font} command}
 
@@ -347,12 +342,6 @@ equivalent features between different fonts can have different names.
 
 Some font features may be applied for any font. These are
 \begin{optdesc}
-\item[mapping=\textsl{<font map>}]
-Uses the specified font mapping for this font. This uses the TECKit
-engine to transform Unicode characters in the last-minute processing
-stage of the source. For example, |mapping=tex-text| will enable the
-classical mappings from ASCII |``---''| to proper typographical
-glyphs “—”, and so on.
 
 \item[color={\slshape RRGGBB}{[{\slshape TT}]}]
 Triple pair of hex values to specify the colour in RGB space, with an
@@ -363,9 +352,6 @@ optional value for the transparency.
 \9 A sans blue quoted em-dash: ``---''.
 \end{example}
 
-\item[letterspace=$x$]
-Adds $x/S$ space between letters in words, where $S$ is the font size.
-
 \item[embolden=$x$]
 Increase the envelope of each glyph by the set amount (this makes the
 letters look ‘more bold’). $x=0$ corresponds to no change; $x=1.5$ is a
@@ -374,6 +360,16 @@ good default value.
 \item[extend=$x$]
 Stretch each glyph horizontally by a factor of $x$ (\ie, $x=1$
 corresponds to no change).
+
+\item[letterspace=$x$]
+Adds $x/S$ space between letters in words, where $S$ is the font size.
+
+\item[mapping=\textsl{<font map>}]
+Uses the specified font mapping for this font. This uses the TECKit
+engine to transform Unicode characters in the last-minute processing
+stage of the source. For example, |mapping=tex-text| will enable the
+classical mappings from ASCII |``---''| to proper typographical
+glyphs “—”, and so on.
 
 \item[slant=$x$]
 Slant each glyph by the set amount. $x=0$ corresponds to no change;
@@ -411,8 +407,6 @@ fonts.
 \item[vertical]
 Enables glyph rotation in the output so vertical typesetting can be performed.
 \end{optdesc}
-
-\part{New commands}
 
 \section{Font primitives}
 
@@ -1125,6 +1119,8 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 
 \section{Cross-compatibility with \pdftex and/or \luatex}
 
+\subsection{Geometry}
+
 \cmd|\pdfpageheight|
 \xarg{dimension}
 \desc{The height of the PDF page.}
@@ -1146,6 +1142,8 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 \cmd|\pdflastypos|
 \desc{Retrieves the vertical position saved by \texttt{\char`\\pdfsavepos}.}
 \endcmd
+
+\subsection{Programming}
 
 \cmd|\ifincsname...(\else...)\fi|
 \desc{\tex conditional to branch true if the expansion occurs within
@@ -1207,6 +1205,8 @@ Therefore, |\a| is greater than |\z|: \strcmp{\a}{\z}
 Also note that catcodes are ignored: \strcmp{b}{\b}
 \end{example}
 
+\subsection{Randomness}
+
 \cmd|\normaldeviate|
 \xarg{number}
 \desc{Generate a normally-distributed random integer with a mean of $0$ and
@@ -1214,12 +1214,6 @@ standard deviation $65\,536$. That is, about $68$\% of the time, the result
 will be between $−65\,536$ and $65\,536$ (one standard deviation away from
 the mean). About $95\%$ of results will be within two standard deviations, and
 $99.7$\% within three.}
-\endcmd
-
-\cmd|\uniformdeviate|
-\xarg{number}
-\desc{Generate a uniformly-distributed random integer value between $0$
-(inclusive) and ⟨number⟩ (exclusive).}
 \endcmd
 
 \cmd|\randomseed|
@@ -1232,6 +1226,14 @@ $99.7$\% within three.}
 sequences of semi-randoms at a later moment.}
 \endcmd
 
+\cmd|\uniformdeviate|
+\xarg{number}
+\desc{Generate a uniformly-distributed random integer value between $0$
+(inclusive) and ⟨number⟩ (exclusive).}
+\endcmd
+
+\subsection{Timing}
+
 \cmd|\elapsedtime|
 \desc{Return a number that represents the time elapsed from the moment of
 the start of the run or the last point at which the timer was reset.
@@ -1243,6 +1245,8 @@ $2^{31} − 1$ will be returned.}
 \cmd|\resettimer|
 \desc{Reset the internal timer to $0$.}
 \endcmd
+
+\subsection{File queries}
 
 \cmd|\filedump|
 \texttt{[offset]} \xarg{number}
@@ -1271,6 +1275,18 @@ offset or length are given.}
 keyword is given, the MD5 sum of the file contents.}
 \endcmd
 
+\subsection{Fonts}
+
+\cmd|\pdfmapfile|
+\xarg{map spec}
+\desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for \texttt{xdvipdfmx} to set a font map file. See the \pdftex user manual for full details.}
+\endcmd
+
+\cmd|\pdfmapline|
+\xarg{line from map spec}
+\desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for \texttt{xdvipdfmx} to set up a font map. See the \pdftex user manual for full details.}
+\endcmd
+
 \cmd|\suppressfontnotfounderror|
 \xarg{integer}
 \desc{When set to zero (default) if a font is loaded that cannot be
@@ -1288,15 +1304,6 @@ suppressed and the font control sequence being defined is set to
 \end{example}
 \endcmd
 
-\cmd|\pdfmapfile|
-\xarg{map spec}
-\desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for \texttt{xdvipdfmx} to set a font map file. See the \pdftex user manual for full details.}
-\endcmd
-
-\cmd|\pdfmapline|
-\xarg{line from map spec}
-\desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for \texttt{xdvipdfmx} to set up a font map. See the \pdftex user manual for full details.}
-\endcmd
 
 \section{Misc.}
 
@@ -1315,8 +1322,5 @@ The \xetex version used to typeset this document is:
 \the\XeTeXversion\XeTeXrevision
 \end{example}
 
-
-To conclude: for bug reporting, patches (please), and any other
-discussion, please see \url{https://ctan.org/pkg/xetexref}.
 
 \end{document}
