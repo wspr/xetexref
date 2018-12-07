@@ -8,7 +8,7 @@ Released at:  <http://ctan.org/pkg/xetexref>
 
 ## Compilation
 
-A standard TeX distribution that includes XeTeX is needed to compile the `xetex-reference.tex` document. The following (freely available) fonts are required to be installed in your system:
+A standard TeX distribution that includes XeTeX is needed to compile the `xetex-reference.tex` document. The following (freely available) fonts are required to be installed in your texmf tree:
 
 * Linux Libertine O
 * Antykwa Torunska
@@ -16,9 +16,10 @@ A standard TeX distribution that includes XeTeX is needed to compile the `xetex-
 
 ## Legalities
 
-Copyright 2007-2017 Will Robertson  
-Copyright 2011 Karl Berry  
-Copyright 2013 Khaled Hosny. 
+Copyright 2007-2018 Will Robertson
+Copyright 2018      Joseph Wright
+Copyright 2011-2017 Karl Berry
+Copyright 2013      Khaled Hosny.
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3c

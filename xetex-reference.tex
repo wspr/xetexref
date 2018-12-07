@@ -90,11 +90,12 @@
 \edef\|{|}
 \DefineShortVerb{\|}
 \newcommand\xarg[1]{$\langle\hbox{\rmfamily\itshape #1}\rangle$}
+\let\meta\xarg
 \def\<#1>{\xarg{#1}}
 \newcommand\oarg[1]{\texttt{[\,#1\,]}}
 \newcommand\desc[1]{\par\noindent\ignorespaces#1\par}
 \def\endcmd{%
-  \end{minipage}  
+  \end{minipage}
   \end{trivlist}}
 
 \def\cs#1{\texttt{\textbackslash#1}}
@@ -109,7 +110,7 @@
    \begin{VerbatimOut}{\examplefilename}}
   {\end{VerbatimOut}
    \typesetexample}
-   
+
 \newcommand\typesetexample{%
   \begin{trivlist}\item[]
   \vrule
@@ -142,7 +143,7 @@
 \begin{document}
 \maketitle
 
-\vfill 
+\vfill
 
 \section*{Introduction}
 
@@ -181,8 +182,8 @@ information.
 
 Traditionally, fonts were selected in \tex like this:
 |\font\1=|\xarg{tfm name} \xarg{\tex font options}, where the \xarg{\tex
-font options} included possibilities such as 
-\ ‘| at 10pt|’ \ 
+font options} included possibilities such as
+\ ‘| at 10pt|’ \
 or \ ‘| scaled 1200|’,
 with evident meaning. This syntax still works, but it has been greatly
 extended in \xetex.
@@ -338,7 +339,7 @@ within each font rather than standardised tags. Therefore, even
 equivalent features between different fonts can have different names.
 
 \begin{example}
-\font\gra="Charis SIL/GR:Small Caps=True" at 12pt
+\font\gra="[CharisSIL-R.ttf]/GR:Small Caps=True" at 12pt
 \gra This is the Graphite font Charis SIL with small caps.
 \end{example}
 
@@ -346,14 +347,14 @@ equivalent features between different fonts can have different names.
 
 Some font features may be applied for any font. These are
 \begin{optdesc}
-\item[mapping=\textsl{<font map>}] 
+\item[mapping=\textsl{<font map>}]
 Uses the specified font mapping for this font. This uses the TECKit
 engine to transform Unicode characters in the last-minute processing
 stage of the source. For example, |mapping=tex-text| will enable the
 classical mappings from ASCII |``---''| to proper typographical
 glyphs “—”, and so on.
 
-\item[color={\slshape RRGGBB}{[{\slshape TT}]}] 
+\item[color={\slshape RRGGBB}{[{\slshape TT}]}]
 Triple pair of hex values to specify the colour in RGB space, with an
 optional value for the transparency.
 
@@ -362,7 +363,7 @@ optional value for the transparency.
 \9 A sans blue quoted em-dash: ``---''.
 \end{example}
 
-\item[letterspace=$x$] 
+\item[letterspace=$x$]
 Adds $x/S$ space between letters in words, where $S$ is the font size.
 
 \item[embolden=$x$]
@@ -407,7 +408,7 @@ fonts.
 
 \subsubsection{Vertical typesetting}
 \begin{optdesc}
-\item[vertical] 
+\item[vertical]
 Enables glyph rotation in the output so vertical typesetting can be performed.
 \end{optdesc}
 
@@ -438,8 +439,8 @@ Enables glyph rotation in the output so vertical typesetting can be performed.
   \texttt{\fontname#1} is rendered by
   \ifcase\XeTeXfonttype#1\TeX\or AAT\or OpenType\or Graphite\fi.\par}
 \font\1="cmr10"
-\font\2="Charis SIL"
-\font\3="Charis SIL/OT"
+\font\2="[CharisSIL-R.ttf]"
+\font\3="[CharisSIL-R.ttf]/OT"
 \whattype\1 \whattype\2 \whattype\3
 \end{example}
 
@@ -454,7 +455,7 @@ Enables glyph rotation in the output so vertical typesetting can be performed.
 \endcmd
 
 \begin{example}
-\font\1="Charis SIL"\1
+\font\1="[CharisSIL-R.ttf]"\1
 The first character in Charis SIL is: "\char\XeTeXfirstfontchar\1"
 and the last character is: "\char\XeTeXlastfontchar\1".
 \end{example}
@@ -488,20 +489,20 @@ present. Use \texttt{fontforge} or similar to discover glyph names.}
 \endcmd
 
 \cmd|\XeTeXcharglyph|
-\xarg{char code} 
+\xarg{char code}
 \desc{Expands to the default glyph number of character \xarg{char code}
 in the current font, or 0 if the character is not available in the
 font.}
 \endcmd
 
 \begin{example}
-\font\1="Charis SIL"\1
+\font\1="[CharisSIL-R.ttf]"\1
 The glyph slot in Charis SIL for the Yen symbol is:
     \the\XeTeXglyphindex"yen" . % font-specific glyph name
 Or: \the\XeTeXcharglyph"00A5.   % unicode character slot
 
 This glyph may be typeset with the font-specific glyph slot:
-\XeTeXglyph150, 
+\XeTeXglyph150,
 or the Unicode character slot:
 \char"00A5.
 \end{example}
@@ -541,9 +542,9 @@ these two dimensions.}
   \special{color pop}%
   \kern\XeTeXglyphbounds3 \gid}%
   #1}
-	
+
 \noindent
-\font\x="Charis SIL/I" at 24pt \x
+\font\x="[CharisSIL-I.ttf]" at 24pt \x
 \shadebbox{A} \shadebbox{W} \shadebbox{a} \shadebbox{f}
 \shadebbox{;} \shadebbox{*} \shadebbox{=}
 \end{example}
@@ -642,7 +643,7 @@ numerically. If the feature does not exist, the integer is
 \endcmd
 
 \begin{example}
-\font\1="Charis SIL/GR" at 10pt
+\font\1="[CharisSIL-R.ttf]/GR" at 10pt
 \def\featname{Uppercase Eng alternates}
 The feature ‘\featname’ has index
 \the\XeTeXfindfeaturebyname\1 "\featname"\relax
@@ -699,7 +700,7 @@ feature/selector exists before attempting to use it.}
 \endcmd
 
 \begin{example}
-\font\1="Charis SIL/GR" at 10pt
+\font\1="[CharisSIL-R.ttf]/GR" at 10pt
 \def\featname{Uppercase Eng alternates}
 \newcount\featcount
 \featcount=\XeTeXfindfeaturebyname\1 "\featname"\relax
@@ -709,8 +710,8 @@ feature/selector exists before attempting to use it.}
 \seleccount=\XeTeXfindselectorbyname\1 \featcount "\selecname"\relax
 The feature selector ‘\selecname’ has index \the\seleccount
 
-\font\2="Charis SIL/GR:\featname=\selecname" at 10pt
-\font\3="Charis SIL/GR:\the\featcount=\the\seleccount" at 10pt
+\font\2="[CharisSIL-R.ttf]/GR:\featname=\selecname" at 10pt
+\font\3="[CharisSIL-R.ttf]/GR:\the\featcount=\the\seleccount" at 10pt
 
 Activating the feature: \1 Ŋ \2 Ŋ \3 Ŋ
 \end{example}
@@ -998,7 +999,7 @@ allowed. Off, 0, by default.}
 \endcmd
 
 \cmd|\XeTeXupwardsmode|
-\xarg{Integer} 
+\xarg{Integer}
 \desc{If greater than zero, successive lines of text (and rules, boxes,
 etc.) will be stacked upwards instead of downwards.}
 \endcmd
@@ -1056,7 +1057,7 @@ with unit ‘|pt|’. For example, for a rotation specified with a dimension
 \item \verb|\testdim=1in    | is 72.27\textdegree, and
 \item \verb|\testdim=100sp| is (100/65536)\textdegree.
 \end{itemize}
-In all cases the resulting decimal number for rotation $x$ must be  
+In all cases the resulting decimal number for rotation $x$ must be
 within the limits $-16384 < x < 16384$.
 
 The \cs{XeTeXpdffile} command takes one more optional argument for
@@ -1167,7 +1168,7 @@ undefined.}
 \xarg{control sequence}
 \desc{This command executes the primitive meaning of the following control
 sequence, regardless of whether the control sequence has been redefined
-or made undefined.  If the primitive was expandable, \cmd|\primitive| expands
+or made undefined.  If the primitive was expandable, \cs{primitive} expands
 also.  On the other hand, if the control sequence never was a primitive,
 nothing happens and no error is raised.}
 \endcmd
@@ -1244,8 +1245,8 @@ $2^{31} − 1$ will be returned.}
 \endcmd
 
 \cmd|\filedump|
-\texttt{[offset]} \xargs{number}
-\texttt{[length]} \xargs{number}
+\texttt{[offset]} \xarg{number}
+\texttt{[length]} \xarg{number}
 \xarg{file}
 \desc{Expands to a hexadecimal dump of the contents of the file, starting
 from position zero and extending to the end of the file unless either an
