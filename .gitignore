@@ -1,4 +1,6 @@
 
+build/
 xetexref/
 *.zip
 *.pdf
+*.example
