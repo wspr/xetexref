@@ -1,7 +1,9 @@
 
-metadata = {
-  pkg         = "xetexref",
-  version     = "2018-12-07",
+module = "xetexref"
+
+uploadconfig = {
+  pkg         = module,
+  version     = "2019-03-05",
   author      = "Will Robertson",
   license     = "lppl1.3c",
   summary     = "Reference documentation for XeTeX",
@@ -11,12 +13,10 @@ metadata = {
   repository  = "https://github.com/wspr/xetexref/",
   description = "This package comprises reference documentation for the XeTeX engine, detailing its extended features.",
   update      = true,
+  announcement = "",
 }
 
-module = metadata.pkg
 typesetfiles = {"xetex-reference.tex"}
 typesetexe = "xelatex -no-mktex=tfm "
 
-ctandata = metadata
 require("l3build-wspr.lua")
-ctanupload = true

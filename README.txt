@@ -16,7 +16,7 @@ A standard TeX distribution that includes XeTeX is needed to compile the `xetex-
 
 ## Legalities
 
-Copyright 2007-2018 Will Robertson
+Copyright 2007-2019 Will Robertson
 Copyright 2018      Joseph Wright
 Copyright 2011-2017 Karl Berry
 Copyright 2013      Khaled Hosny.
