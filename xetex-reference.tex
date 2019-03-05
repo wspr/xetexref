@@ -871,7 +871,32 @@ optional keyword:\medskip
 \desc{Typesets the radical in the \xarg{glyph slot} in the family specified.}
 \endcmd
 
-\section{Character classes}
+\section{Characters}
+
+\cmd|\Uchar|
+\xarg{number}
+\desc{Expands to a character token with specified slot \meta{number} (range 0 to 1,114,111) with category code 12. While it looks superficially like the \TeX\ primitive \cs{char}, \cs{Uchar} is an expandable operation.}
+\endcmd
+
+\begin{example}
+\edef\x{\Uchar`\$}
+\ttfamily\meaning\x\par
+\expandafter\ifcat\x.[`other']\fi
+\end{example}
+
+\cmd|\Ucharcat|
+\xarg{number}
+\xarg{catcode}
+\desc{Expands to a character token with slot \meta{number} and \meta{catcode} specified.}
+\endcmd
+
+\begin{example}
+\edef\x{\Ucharcat`\# 3}
+\ttfamily\meaning\x\par
+\expandafter\ifcat\x$[`mathshift']\fi
+\end{example}
+
+\subsection{Character classes}
 
 The idea behind character classes is to define a boundary where tokens
 can be added to the input stream without explicit markup. It was
@@ -1275,6 +1300,7 @@ offset or length are given.}
 keyword is given, the MD5 sum of the file contents.}
 \endcmd
 
+
 \subsection{Fonts}
 
 \cmd|\pdfmapfile|
@@ -1305,7 +1331,7 @@ suppressed and the font control sequence being defined is set to
 \endcmd
 
 
-\section{Misc.}
+\section{Engine version}
 
 \cmd|\XeTeXversion|
 \desc{Expands to a number corresponding to the \xetex version:
