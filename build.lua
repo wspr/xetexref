@@ -12,8 +12,6 @@ uploadconfig = {
   support     = "http://lists.tug.org/xetex",
   repository  = "https://github.com/wspr/xetexref/",
   description = "This package comprises reference documentation for the XeTeX engine, detailing its extended features.",
-  update      = true,
-  announcement = "",
 }
 
 typesetfiles = {"xetex-reference.tex"}
