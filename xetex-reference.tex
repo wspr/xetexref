@@ -930,11 +930,11 @@ language (in another script) is present in the text.
 \opteq
 \xarg{interchar class}
 \desc{Assigns a class corresponding to \xarg{interchar class} (range
-0–255) to a \xarg{char slot}. Most characters are class 0 by
+0–4095) to a \xarg{char slot}. Most characters are class 0 by
 default. Class 1 is for CJK ideographs, classes 2 and 3 are CJK
-punctuation. The boundary of a text string is considered class 255,
+punctuation. The boundary of a text string is considered class 4095,
 wherever there is a boundary between a ‘run’ of characters and something
-else — glue, kern, math, box, etc. Special case class 256 is ignored;
+else — glue, kern, math, box, etc. Special case class 4096 is ignored;
 useful for diacritics so I’m told.}
 \endcmd
 
