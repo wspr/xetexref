@@ -555,6 +555,13 @@ output but is slower. Activated ($\ge\mathtt1$) by default.}
 \XeTeXuseglyphmetrics=1 \fbox{a}\fbox{A}\fbox{j}\fbox{J}
 \end{example}
 
+\cmd|\XeTeXgenerateactualtext|
+\xarg{integer}
+\desc{Controls the output of \texttt{/ActualText} entry. Default is 0.
+When set to 1, the \texttt{/ActualText} entry is added to the output PDF
+for better copy/paste and search in PDF viewers.}
+\endcmd
+
 \subsection{OpenType fonts}
 
 \cmd|\XeTeXOTcountscripts|
@@ -1169,6 +1176,12 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 \endcmd
 
 \subsection{Programming}
+
+\cmd|\expanded|
+\xarg{general text}
+\desc{Carries out full expansion of a token list like \texttt{\char`\\message},
+but it is still expandable.}
+\endcmd
 
 \cmd|\ifincsname...(\else...)\fi|
 \desc{\tex conditional to branch true if the expansion occurs within
