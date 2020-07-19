@@ -1,14 +1,17 @@
 # The XETEXREF documentation
 
 This package consists of a semi-official reference document for XeTeX.
-It is not a user manual; it simply attempts to list XeTeX’s extended features and interfaces.
+It is not a user manual; it simply attempts to list XeTeX's
+extended features and interfaces.
 
 Developed at: <https://github.com/wspr/xetexref>
 Released at:  <http://ctan.org/pkg/xetexref>
 
 ## Compilation
 
-A standard TeX distribution that includes XeTeX is needed to compile the `xetex-reference.tex` document. The following (freely available) fonts are required to be installed in your texmf tree:
+A standard TeX distribution that includes XeTeX is needed to compile the
+`xetex-reference.tex` document. The following (freely available) fonts
+are required to be installed in your texmf tree and/or as system fonts:
 
 * Linux Libertine O
 * Antykwa Torunska
@@ -16,7 +19,7 @@ A standard TeX distribution that includes XeTeX is needed to compile the `xetex-
 
 ## Legalities
 
-Copyright 2007-2019 Will Robertson
+Copyright 2007-2020 Will Robertson
 Copyright 2019      Hironobu Yamashita
 Copyright 2018      Joseph Wright
 Copyright 2011-2017 Karl Berry

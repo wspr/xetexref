@@ -19,6 +19,7 @@
 
 \title{The \xetex reference guide\\\url{https://ctan.org/pkg/xetexref}}
 \author{Will Robertson \and Khaled Hosny \and Karl Berry}
+\ifx\VERSION\undefined \def\VERSION{testbuild}\fi
 \date{\VERSION}
 
 \suppressfontnotfounderror=1
@@ -43,10 +44,10 @@
     BoldItalicFont = *-bolditalic ,
     Scale=MatchLowercase
   ]
-\setmonofont{inconsolata}[
+\iffalse \setmonofont{inconsolata}[
   Scale=MatchLowercase,
   StylisticSet=3, % <- straight quotes
-  AutoFakeSlant=.2]
+  AutoFakeSlant=.2]\fi
 \setmathfont{texgyrepagella-math.otf}
 
 \usepackage{calc,fancyvrb,hyperref,refstyle,varioref,xcolor,hologo,xspace}
@@ -1148,7 +1149,10 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 \endcmd
 
 
-\section{Cross-compatibility with \pdftex and/or \luatex}
+\section{Cross-compatibility with \pdftex, \luatex, etc.}
+
+All the major (non-frozen) \TeX\ engines support most of this
+functionality, so that macro writers (e.g., \LaTeX) can make use of it.
 
 \subsection{Geometry}
 
@@ -1323,6 +1327,16 @@ keyword is given, the MD5 sum of the file contents.}
 \cmd|\pdfmapline|
 \xarg{line from map spec}
 \desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for \texttt{xdvipdfmx} to set up a font map. See the \pdftex user manual for full details.}
+\endcmd
+
+\cmd|\tracinglostchars|
+\xarg{integer}
+\desc{When set to 3 or larger, a character missing from a font provokes
+a full error, not just a diagnostic message (perhaps only in the log
+file, depending on \texttt{\char`\\tracingonline}. Also, the missing
+character code is always reported in hex, two digits for normal \TeX\
+fonts or \texttt{U+....} format for system fonts, in addition to its ASCII
+character, if printable.}
 \endcmd
 
 \cmd|\suppressfontnotfounderror|
