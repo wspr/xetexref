@@ -5,7 +5,7 @@ It is not a user manual; it simply attempts to list XeTeX's
 extended features and interfaces.
 
 Developed at: <https://github.com/wspr/xetexref>
-Released at:  <http://ctan.org/pkg/xetexref>
+Released at:  <https://ctan.org/pkg/xetexref>
 
 ## Compilation
 
@@ -19,7 +19,7 @@ are required to be installed in your texmf tree and/or as system fonts:
 
 ## Legalities
 
-Copyright 2007-2020 Will Robertson
+Copyright 2007-2021 Will Robertson
 Copyright 2019      Hironobu Yamashita
 Copyright 2018      Joseph Wright
 Copyright 2011-2017 Karl Berry
@@ -29,7 +29,7 @@ This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3c
 of this license or (at your option) any later version.
 The latest version of this license is in
-  http://www.latex-project.org/lppl.txt
+  https://www.latex-project.org/lppl.txt
 and version 1.3 or later is part of all distributions of LaTeX
 version 2005/12/01 or later.
 

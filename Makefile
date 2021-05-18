@@ -3,7 +3,7 @@
 default: pdf
 
 pdf xetex-reference.pdf: xetex-reference.tex
-	texfot xelatex -no-mktex=tfm '\nonstopmode\input $<'
+	texfot xelatex --file-line-error -no-mktex=tfm '\nonstopmode\input $<'
 
 tryfonts:
-	xetex -no-mktex=tfm '\nonstopmode \input tryxefonts.tex'
+	xetex -no-mktex=tfm '\nonstopmode\input tryxefonts.tex'
