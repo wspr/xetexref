@@ -294,7 +294,7 @@ The following \xarg{font options} control which `renderer' \xetex uses to interf
 
 The \xarg{font features} is a comma or semi-colon separated list
 activating or deactivating various OpenType, Graphite, or AAT font
-features, which will vary by font.  In contrast to font options,
+features; these vary by font.  In contrast to font options,
 features work whether the font is selected by file name or through the
 operating system.
 
@@ -306,19 +306,18 @@ font (see comments at the top of each).
 
 OpenType font features are usually specified with
 \hlink{https://www.microsoft.com/typography/otspec/featuretags.htm}{standard
-tags}. They may be either comma- or semicolon-separated, and prefixed
-with a |+| to turn them on and a |-| to turn them off, optionally followed
-by |=| and a 0-based index for selecting alternates from multiple
-alternates features (ignored for |-| prefixed tags).
+tags} in the \cs{font} command. They may be either comma- or
+semicolon-separated, and prefixed with a |+| to turn them on and a |-|
+to turn them off, optionally followed by |=| and a 0-based index for
+selecting alternates from multiple alternates features (ignored for |-|
+prefixed tags).
 
 \begin{example}
 \font\liber="[LinLibertine_RI.otf]/I=5:+smcp" at 12pt
 \liber This is the OpenType font Linux Libertine in italic with small caps.
 \end{example}
 
-Varying depending on the language and script in use (see
-\secref[vref]{script}), a small number of OpenType features, if they
-exist, may be activated by default.
+OpenType features can be activated by default:
 
 \begin{example}
 \font\antt="[AntykwaTorunska-Regular.otf]"         at 12pt \antt 0
@@ -331,7 +330,7 @@ exist, may be activated by default.
 
 AAT font features and Graphite font features are specified by strings
 within each font rather than standardised tags. Therefore, even
-equivalent features between different fonts can have different names.
+equivalent features can and do have different names in different fonts.
 
 \begin{example}
 \font\gra="[CharisSIL-R.ttf]/GR:Small Caps=True" at 12pt
@@ -1207,6 +1206,20 @@ but it is still expandable.}
 \desc{\tex conditional to test if a control sequence is a primitive
 which still has its primitive meaning, \ie, has not been redefined or
 undefined.}
+\endcmd
+
+\cmd|\partokencontext|
+\xarg{integer}
+\desc{Specifies the cases in which \cs{par}, or the given
+\cs{partokenname} (see next) is internally emitted. The default is zero,
+yielding the standard behavior. See the \pdftex\ manual for more.}
+\endcmd
+
+\cmd|\partokenname|
+\xarg{control sequence}
+\desc{By default, \TeX\ emits a control sequence \cs{par} at blank lines
+and other situations. This command changes the name of what is emitted
+to the given control sequence. See the \pdftex\ manual for more.}
 \endcmd
 
 \cmd|\primitive|
