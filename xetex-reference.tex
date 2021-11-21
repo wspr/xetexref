@@ -23,6 +23,7 @@
 \date{\VERSION}
 
 \suppressfontnotfounderror=1
+\tracinglostchars=1
 
 \makeatletter
 \def\@dotsep{999}
@@ -1092,7 +1093,7 @@ within the limits $-16384 < x < 16384$.
 
 The \cs{XeTeXpdffile} command takes one more optional argument for
 specifying to which ‘box’ the PDF should be cropped before inserting
-it (the second optional argument listed in thes syntax of
+it (the second optional argument listed in the syntax of
 \cs{XeTeXpdffile} above). The PDF standard defines a number of
 (rectangular) bounding boxes that may be specified for various
 purposes. These are described in the PDF Standard\footnote{Adobe
@@ -1155,9 +1156,11 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 
 \section{Cross-compatibility with \pdftex, \luatex, etc.}
 
-All the major (non-frozen) \TeX\ engines support most of the
-functionality described in this section (in one way or another), so that
-macro writers (e.g., \LaTeX) can make use of it.
+All of the major (non-frozen) \TeX\ engines support most of the
+functionality described in this section, in one way or another, so that
+macro formats (e.g., \LaTeX) can make use of it. Please see the
+pdf\TeX{} manual for details (where all these primitive names begin with
+\verb|\pdf...|).
 
 \subsection{Geometry}
 
@@ -1242,6 +1245,16 @@ greater) in which a subset of commands only are allowed.}
 \begin{example}
 Shell escape \ifnum\shellescape>0 is \else is not \fi enabled.
 \end{example}
+
+\cmd|\showstream|
+\xarg{integer}
+\desc{If this primitive parameter has a value corresponding to an open output
+stream (which has been opened with \cs{openout}), then any
+\cs{show}, \cs{showthe}, \cs{showbox} or \cs{showlists}
+commands do not write output to the terminal, but instead write to only
+the referenced output stream, as if they were written with
+\cs{immediate}\cs{write}.}
+\endcmd
 
 \cmd|\strcmp|
 \xarg{arg one}
