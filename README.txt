@@ -1,6 +1,7 @@
 # The XETEXREF documentation
 
-This package consists of a semi-official reference document for XeTeX.
+This package is a semi-official reference document for XeTeX.
+(It has not been reviewed by the XeTeX maintainers.)
 It is not a user manual; it simply attempts to list XeTeX's
 extended features and interfaces.
 
@@ -19,7 +20,7 @@ are required to be installed in your texmf tree and/or as system fonts:
 
 ## Legalities
 
-Copyright 2007-2021 Will Robertson
+Copyright 2007-2023 Will Robertson
 Copyright 2019      Hironobu Yamashita
 Copyright 2018      Joseph Wright
 Copyright 2011-2017 Karl Berry
@@ -35,4 +36,4 @@ version 2005/12/01 or later.
 
 This work has the LPPL maintenance status `maintained'.
 
-The Current Maintainer of this work is Will Robertson.
+The Current Maintainers of this work are Will Robertson and Karl Berry.

@@ -19,8 +19,7 @@
 
 \title{The \xetex reference guide\\\url{https://ctan.org/pkg/xetexref}}
 \author{Will Robertson \and Khaled Hosny \and Karl Berry}
-\ifx\VERSION\undefined \def\VERSION{testbuild}\fi
-\date{\VERSION}
+\date{\today}
 
 \suppressfontnotfounderror=1
 \tracinglostchars=1
@@ -170,9 +169,11 @@ It is not a users' guide. Much of the functionality addressed here is
 provided in abstracted form in various \latex packages and \context
 modules.
 
-The descriptions here are intended to be a reasonably complete list of
-the new primitives and features of \xetex. Descriptions are still rather
-aenemic, however.
+The descriptions here are intended to be a reasonably complete, though
+terse, list of the new primitives and features of \xetex.
+
+For contributions (very welcome!), bug reports, etc., see links from
+the CTAN package page: \url{https://ctan.org/pkg/xetexref}.
 
 \section*{License}
 
@@ -401,7 +402,7 @@ size.
 OpenType font features (and font behavior) can vary by
 \hlink{https://www.microsoft.com/typography/otspec/scripttags.htm}{script}
 (‘alphabet’) and by
-\hlink{http:s//www.microsoft.com/typography/otspec/languagetags.htm}{language}.
+\hlink{https://www.microsoft.com/typography/otspec/languagetags.htm}{language}.
 These are selected with four and three letter tags, respectively.
 
 \begin{optdesc}
@@ -1180,7 +1181,7 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 \endcmd
 
 
-\section{Cross-compatibility with \pdftex, \luatex, etc.}
+\section{Cross-compatibility with other \TeX\ engines}
 
 All of the major (non-frozen) \TeX\ engines support most of the
 functionality described in this section, in one way or another, so that
@@ -1282,6 +1283,13 @@ the referenced output stream, as if they were written with
 \cs{immediate}\cs{write}.}
 \endcmd
 
+\cmd|\special shipout |
+\xarg{token list}
+\desc{With the additional ``keyword'' \texttt{shipout}, expansion of the
+\xarg{token listr} is delayed until \cs{shipout}, like
+non-\cs{immediate}\cs{write}.}
+\endcmd
+
 \cmd|\strcmp|
 \xarg{arg one}
 \xarg{arg two}
@@ -1304,13 +1312,22 @@ Therefore, |\a| is greater than |\z|: \strcmp{\a}{\z}
 Also note that catcodes are ignored: \strcmp{b}{\b}
 \end{example}
 
+\cmd|\tracingstacklevels|
+\xarg{integer}
+\desc{If this integer parameter is positive, and \cs{tracingmacros}
+is also positive, a prefix indicating the macro expansion depth
+is output on each relevant log line (e.g., \texttt{\char`\~..}\ at depth~2).
+Also, macro logging is truncated at a depth $\ge$ the parameter value.}
+\endcmd
+
 \subsection{Randomness}
 
 \cmd|\normaldeviate|
 \xarg{number}
 \desc{Generate a normally-distributed random integer with a mean of $0$ and
 standard deviation $65\,536$. That is, about $68$\% of the time, the result
-will be between $−65\,536$ and $65\,536$ (one standard deviation away from
+will be between $−65\,536$ and $65\,536$ (one standard
+deviation away from
 the mean). About $95\%$ of results will be within two standard deviations, and
 $99.7$\% within three.}
 \endcmd
@@ -1413,9 +1430,9 @@ primitive, command line option, etc. This is allowed because additional
 methods of recognizing filenames are explicitly mentioned in
 \texttt{tex.web} as acceptable system-dependent extensions.
 
-Incidentally, this does not directly affect \LaTeX's \cs{input}
-command, as that is a macro redefinition of the standard \cs{input}
-primitive.}
+Incidentally, this does not directly affect \LaTeX's \cs{input} command
+(which takes a group-delimited argument), as that is a macro
+redefinition of the \cs{input} primitive.}
 \endcmd
 
 

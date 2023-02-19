@@ -11,3 +11,11 @@ tryfonts:
 
 spell:
 	myspell $(doc)
+	#dw <$(doc)
+
+pkg = xetexref
+dist:
+	rm -rf $(pkg) $(pkg).zip
+	mkdir $(pkg)
+	ln -s ../README.txt ../$(doc) ../xetex-reference.pdf $(pkg)
+	zip -r $(pkg).zip $(pkg)
