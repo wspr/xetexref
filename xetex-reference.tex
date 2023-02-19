@@ -27,6 +27,10 @@
 
 \makeatletter
 \def\@dotsep{999}
+\makeatother
+
+\usepackage{refstyle} % must load before unicode-math with 2023 LaTeX.
+% https://tex.stackexchange.com/questions/675145
 
 \usepackage{fontspec,unicode-math}
 \setmainfont{texgyrepagella}[
@@ -51,7 +55,7 @@
   AutoFakeSlant=.2]\fi
 \setmathfont{texgyrepagella-math.otf}
 
-\usepackage{calc,fancyvrb,hyperref,refstyle,varioref,xcolor,hologo,xspace}
+\usepackage{calc,fancyvrb,hyperref,varioref,xcolor,hologo,xspace}
 \usepackage{geometry}
 %\geometry{screen,margin=3cm}
 
@@ -105,11 +109,23 @@
 \newlength\exampleindent
 \setlength\exampleindent{1em}
 
-\newenvironment{example}
-  {\VerbatimEnvironment
+\newenvironment{examplenooutput}
+  {\wlog{^^Jstarting examplenooutput at line \the\inputlineno}
+   \VerbatimEnvironment
    \begin{VerbatimOut}{\examplefilename}}
   {\end{VerbatimOut}
+   \def\typesetoutput{[No output for the example, since no AAT or
+                       Graphite fonts are available.}
    \typesetexample}
+
+\newenvironment{example}
+  {\wlog{^^Jstarting example at line \the\inputlineno}
+   \VerbatimEnvironment
+   \begin{VerbatimOut}{\examplefilename}}
+  {\end{VerbatimOut}
+   \def\typesetoutput{\color[rgb]{0.7,0,0}\input\examplefilename\relax}%
+   \typesetexample}
+
 
 \newcommand\typesetexample{%
   \begin{trivlist}\item[]
@@ -121,9 +137,10 @@
     \vspace{0.4\baselineskip}
     \BVerbatimInput[fontsize=\small]{\examplefilename}\par
     \vspace{0.4\baselineskip}
-    \color[rgb]{0.7,0,0}\input\examplefilename\relax
+    \typesetoutput
   \end{minipage}\par
   \end{trivlist}}
+
 
 \let\strong\textbf
 \newcommand\hlink[2]{\href{#1}{#2}\footnote{\url{#1}}}
@@ -333,10 +350,10 @@ AAT font features and Graphite font features are specified by strings
 within each font rather than standardised tags. Therefore, even
 equivalent features can and do have different names in different fonts.
 
-\begin{example}
-\font\gra="[CharisSIL-R.ttf]/GR:Small Caps=True" at 12pt
+\begin{examplenooutput}
+\font\gra="[CharisSIL-Regular.ttf]/GR:Small Caps=True" at 12pt
 \gra This is the Graphite font Charis SIL with small caps.
-\end{example}
+\end{examplenooutput}
 
 \subsubsection{Features for all fonts}
 
@@ -348,7 +365,7 @@ Triple pair of hex values to specify the colour in RGB space, with an
 optional value for the transparency.
 
 \begin{example}
-\font\9="[lmsans10-regular]:color=0000FF,mapping=tex-text"
+\font\9="[lmsans10-regular.otf]:color=0000FF,mapping=tex-text"
 \9 A sans blue quoted em-dash: ``---''.
 \end{example}
 
@@ -433,8 +450,8 @@ Enables glyph rotation in the output so vertical typesetting can be performed.
   \texttt{\fontname#1} is rendered by
   \ifcase\XeTeXfonttype#1\TeX\or AAT\or OpenType\or Graphite\fi.\par}
 \font\1="cmr10"
-\font\2="[CharisSIL-R.ttf]"
-\font\3="[CharisSIL-R.ttf]/OT"
+\font\2="[CharisSIL-Regular.ttf]"
+\font\3="[CharisSIL-Regular.ttf]/OT"
 \whattype\1 \whattype\2 \whattype\3
 \end{example}
 
@@ -449,7 +466,7 @@ Enables glyph rotation in the output so vertical typesetting can be performed.
 \endcmd
 
 \begin{example}
-\font\1="[CharisSIL-R.ttf]"\1
+\font\1="[CharisSIL-Regular.ttf]"\1
 The first character in Charis SIL is: "\char\XeTeXfirstfontchar\1"
 and the last character is: "\char\XeTeXlastfontchar\1".
 \end{example}
@@ -490,7 +507,7 @@ font.}
 \endcmd
 
 \begin{example}
-\font\1="[CharisSIL-R.ttf]"\1
+\font\1="[CharisSIL-Regular.ttf]"\1
 The glyph slot in Charis SIL for the Yen symbol is:
     \the\XeTeXglyphindex"yen" . % font-specific glyph name
 Or: \the\XeTeXcharglyph"00A5.   % unicode character slot
@@ -538,7 +555,7 @@ these two dimensions.}
   #1}
 
 \noindent
-\font\x="[CharisSIL-I.ttf]" at 24pt \x
+\font\x="[CharisSIL-Italic.ttf]" at 24pt \x
 \shadebbox{A} \shadebbox{W} \shadebbox{a} \shadebbox{f}
 \shadebbox{;} \shadebbox{*} \shadebbox{=}
 \end{example}
@@ -606,6 +623,9 @@ for better copy/paste and search in PDF viewers.}
 
 \subsection{AAT and Graphite fonts}
 
+These commands apply to AAT and Graphite fonts; for other kinds of
+fonts, they produce an error.
+
 \subsubsection{Features}
 
 \cmd|\XeTeXcountfeatures|
@@ -637,18 +657,18 @@ exclusive (can only take a single selector).}
 \xarg{font}
 \xarg{feature name}
 \desc{This command provides a method to query whether a feature name
-corresponds to a feature contained in the font. It represents an integer
+corresponds to a feature contained in the font. It returns an integer
 corresponding to the feature number used to access the feature
 numerically. If the feature does not exist, the integer is
 \texttt{-1}. Also see \cs{XeTeXfindselectorbyname}.}
 \endcmd
 
-\begin{example}
-\font\1="[CharisSIL-R.ttf]/GR" at 10pt
+\begin{examplenooutput}
+\font\1="[CharisSIL-Regular.ttf]/GR" at 10pt
 \def\featname{Uppercase Eng alternates}
 The feature ‘\featname’ has index
 \the\XeTeXfindfeaturebyname\1 "\featname"\relax
-\end{example}
+\end{examplenooutput}
 
 \subsubsection{Feature selectors}
 
@@ -683,14 +703,13 @@ feature of a \xarg{font}.}
 of a font is on by default.}
 \endcmd
 
-
 \cmd|\XeTeXfindselectorbyname|
 \xarg{font}
 \xarg{feature name}
 \xarg{selector name}
 \desc{This command provides a method to query whether a feature selector
 name corresponds to a selector of a specific feature contained in the
-font. It represents an integer corresponding to the selector number used
+font. It returns an integer corresponding to the selector number used
 to access the feature selector numerically. If the feature selector does
 not exist, the integer is \texttt{-1}.
 
@@ -700,8 +719,8 @@ below). Alternatively, they can be used as a means of checking whether a
 feature/selector exists before attempting to use it.}
 \endcmd
 
-\begin{example}
-\font\1="[CharisSIL-R.ttf]/GR" at 10pt
+\begin{examplenooutput}
+\font\1="[CharisSIL-Regular.ttf]/GR" at 10pt
 \def\featname{Uppercase Eng alternates}
 \newcount\featcount
 \featcount=\XeTeXfindfeaturebyname\1 "\featname"\relax
@@ -711,11 +730,11 @@ feature/selector exists before attempting to use it.}
 \seleccount=\XeTeXfindselectorbyname\1 \featcount "\selecname"\relax
 The feature selector ‘\selecname’ has index \the\seleccount
 
-\font\2="[CharisSIL-R.ttf]/GR:\featname=\selecname" at 10pt
-\font\3="[CharisSIL-R.ttf]/GR:\the\featcount=\the\seleccount" at 10pt
+\font\2="[CharisSIL-Regular.ttf]/GR:\featname=\selecname" at 10pt
+\font\3="[CharisSIL-Regular.ttf]/GR:\the\featcount=\the\seleccount" at 10pt
 
 Activating the feature: \1 Ŋ \2 Ŋ \3 Ŋ
-\end{example}
+\end{examplenooutput}
 
 \subsubsection{Variation axes}
 
@@ -879,6 +898,13 @@ optional keyword:\medskip
 \endcmd
 
 \section{Characters}
+
+\cmd|\char|
+\xarg{number}
+\desc{This and related \TeX\ primitives have been extended to take any
+16-bit number, that is, up to 65536. As usual, hex digits must be
+specific in uppercase: \cs{char"FF}, not \cs{char"ff}.}
+\endcmd
 
 \cmd|\Uchar|
 \xarg{number}
