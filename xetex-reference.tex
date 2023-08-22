@@ -1180,6 +1180,16 @@ the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 the specified \xarg{font} to $n/1000$\,em. $n$ is clipped to $\pm1000$.}
 \endcmd
 
+\cmd|\rightmarginkern| \xarg{box number}
+\desc{Expands to the width of the margin kerning at the right side of
+the horizontal list stored in \cs{box} \xarg{box number}.}
+\endcmd
+
+\cmd|\leftmarginkern| \xarg{box number}
+\desc{Expands to the width of the margin kerning at the left side of
+the horizontal list stored in \cs{box} \xarg{box number}.}
+\endcmd
+
 
 \section{Cross-compatibility with other \TeX\ engines}
 
@@ -1384,6 +1394,13 @@ $2^{31} − 1$ will be returned.}
 
 \subsection{File handling}
 
+\cmd|\creationdate|
+\desc{Expands to the date string \xetex\ uses in the info dictionary of
+the output PDF document. This corresponds to the date and time when
+\xetex\ engine started. If \texttt{SOURCE\_DATE\_EPOCH} is set, its value
+is used for \cs{creationdate}.}
+\endcmd
+
 \cmd|\filedump|
 \texttt{[offset]} \xarg{number}
 \texttt{[length]} \xarg{number}
@@ -1395,8 +1412,10 @@ offset or length are given.}
 
 \cmd|\filemoddate|
 \barg{\xarg{filename}}
-\desc{Expands to the date the file was last modified in the format
-\texttt{D:YYYYMMDDHHMMSS+ZZZZ} as a string.}
+\desc{Expands to the date the file was last modified in the same format
+as for \cs{creationdate} as a string. If both \texttt{SOURCE\_DATE\_EPOCH}
+and \texttt{FORCE\_SOURCE\_DATE} are set, \cs{filemoddate} returns a value
+in UTC, ending in \texttt{Z} regardless of the values of environment variables.}
 \endcmd
 
 \cmd|\filesize|
