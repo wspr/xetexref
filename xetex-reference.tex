@@ -706,7 +706,7 @@ of a font is on by default.}
 
 \cmd|\XeTeXfindselectorbyname|
 \xarg{font}
-\xarg{feature name}
+\xarg{feature code}
 \xarg{selector name}
 \desc{This command provides a method to query whether a feature selector
 name corresponds to a selector of a specific feature contained in the
@@ -785,6 +785,17 @@ the \xarg{font}.}
 the \xarg{variation name}. This index cannot be used directly but may be
 used to error-check that a specified variation name exists before
 attempting to use it.}
+\endcmd
+
+\subsection{Contextual Adjustment  space handling}
+\cmd|\XeTeXinterwordspaceshaping|
+\xarg{integer}
+\desc{Controls the shaping of space characters in context when using native fonts.
+Defaults to 0 (disabled).
+Set to 1 for contextual adjustment of space width only,
+and 2 for full cross-space shaping (e.g. multi-word ligatures).
+Note when set to 2  each run of text (words and intervening spaces) in a single font will be re-shaped as a unit
+as a page is shipped out, so setting this register to 2 affects the whole page, not respecting \TeX\ grouping.}
 \endcmd
 
 \subsection{Maths fonts}
@@ -1060,6 +1071,13 @@ allowed. Off, 0, by default.}
 \xarg{integer}
 \desc{If greater than zero, successive lines of text (and rules, boxes,
 etc.) will be stacked upwards instead of downwards.}
+\endcmd
+
+
+\cmd|\XeTeXhyphenatablelength|
+\xarg{integer}
+\desc{Sets the maximum hyphenatable word length,
+     defaults to 63 for compatibility with classic \TeX.}
 \endcmd
 
 \section{Graphics}
