@@ -787,15 +787,18 @@ used to error-check that a specified variation name exists before
 attempting to use it.}
 \endcmd
 
-\subsection{Contextual Adjustment  space handling}
+\subsection{Contextual adjustment space handling}
 \cmd|\XeTeXinterwordspaceshaping|
 \xarg{integer}
-\desc{Controls the shaping of space characters in context when using native fonts.
-Defaults to 0 (disabled).
-Set to 1 for contextual adjustment of space width only,
-and 2 for full cross-space shaping (e.g. multi-word ligatures).
-Note when set to 2  each run of text (words and intervening spaces) in a single font will be re-shaped as a unit
-as a page is shipped out, so setting this register to 2 affects the whole page, not respecting \TeX\ grouping.}
+\desc{Controls the shaping of space characters in context when using
+native fonts. Defaults to 0 (disabled). Set to 1 for contextual
+adjustment of space width only, and 2 for full cross-space shaping
+(e.g., multi-word ligatures).
+
+When set to 2, each run of text (words and intervening spaces) in a
+single font will be re-shaped as a unit as a page is shipped out, so
+setting this register to 2 affects the whole page, not respecting \TeX\
+grouping.}
 \endcmd
 
 \subsection{Maths fonts}
@@ -1076,8 +1079,8 @@ etc.) will be stacked upwards instead of downwards.}
 
 \cmd|\XeTeXhyphenatablelength|
 \xarg{integer}
-\desc{Sets the maximum hyphenatable word length,
-     defaults to 63 for compatibility with classic \TeX.}
+\desc{Sets the maximum hyphenatable word length;
+     the default is 63, for compatibility with classic \TeX.}
 \endcmd
 
 \section{Graphics}
@@ -1172,7 +1175,7 @@ box.
 
 \cmd|\XeTeXprotrudechars|
 \xarg{integer}
-\desc{Equivalent to \cs{pdfprotrudechars} in pdf\TeX{} for controlling
+\desc{Equivalent to \cs{pdfprotrudechars} in \pdftex\ for controlling
 character protrusion or ‘margin kerning’. When set to zero (default), character
 protrusion is turned off. When set to one, it is activated but will not affect
 line-breaking. When set to two, line-breaking decisions will change as a result
@@ -1185,7 +1188,7 @@ of the character protrusion.}
 \hsize=20mm
 a a a a a a a a a a abbabbabb aabbabbabb abbabb
 \end{example}
-See the pdf\TeX{} documentation for further details.
+See the \pdftex\ documentation for further details.
 \endcmd
 
 \cmd|\rpcode| \xarg{font} \xarg{char slot} (integer, $n$)
@@ -1214,8 +1217,8 @@ the horizontal list stored in \cs{box} \xarg{box number}.}
 All of the major (non-frozen) \TeX\ engines support most of the
 functionality described in this section, in one way or another, so that
 macro formats (e.g., \LaTeX) can make use of it. Please see the
-pdf\TeX{} manual for details (where all these primitive names begin with
-\verb|\pdf...|).
+\pdftex\ manual for details (in \pdftex, all these primitive names
+begin with \verb|\pdf...|).
 
 \subsection{Geometry}
 
@@ -1388,12 +1391,11 @@ reproducible builds of documents.}
 
 \cmd|FORCE_SOURCE_DATE|
 (environment variable)
-\par\noindent % no \desc because of _'s
-If this is set to~\texttt{1}, \xetex's time-related primitives are also
-initialized from the value of \verb|SOURCE_DATE_EPOCH|. These primitives
+\desc{If this is set to~\texttt{1}, \xetex's time-related primitives are also
+initialized from the value of \texttt{SOURCE\_DATE\_EPOCH}. These primitives
 are \cs{year}, \cs{month}, \cs{day}, and \cs{time}. If
-\verb|SOURCE_DATE_EPOCH| is not set, setting \verb|FORCE_SOURCE_DATE|
-has no effect. (See the \pdftex\ manual for pathological cases.)
+\texttt{SOURCE\_DATE\_EPOCH} is not set, setting \texttt{FORCE\_SOURCE\_DATE}
+has no effect. (See the \pdftex\ manual for pathological cases.)}
 \endcmd
 
 \subsection{Timing}
@@ -1413,10 +1415,11 @@ $2^{31} − 1$ will be returned.}
 \subsection{File handling}
 
 \cmd|\creationdate|
-\desc{Expands to the date string \xetex\ uses in the info dictionary of
-the output PDF document. This corresponds to the date and time when
-\xetex\ engine started, \eg\ \creationdate\ for this file. If
-\texttt{SOURCE\_DATE\_EPOCH} is set, its value is used for \cs{creationdate}.}
+\desc{Expands to the date string \xetex\ uses in the \texttt{/Info}
+dictionary of the output PDF document. This corresponds to the date and
+time when \xetex\ engine started, \eg\ \creationdate\ for this file. If
+\texttt{SOURCE\_DATE\_EPOCH} is set, its value is used for
+\cs{creationdate}.}
 \endcmd
 
 \cmd|\filedump|
@@ -1433,7 +1436,8 @@ offset or length are given.}
 \desc{Expands to the date the file was last modified in the same format
 as for \cs{creationdate} as a string. If both \texttt{SOURCE\_DATE\_EPOCH}
 and \texttt{FORCE\_SOURCE\_DATE} are set, \cs{filemoddate} returns a value
-in UTC, ending in \texttt{Z} regardless of the values of environment variables.}
+in UTC, ending in \texttt{Z}, regardless of the values of environment
+variables.}
 \endcmd
 
 \cmd|\filesize|
