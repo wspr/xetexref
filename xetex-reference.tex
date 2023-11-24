@@ -1414,6 +1414,12 @@ $2^{31} − 1$ will be returned.}
 
 \subsection{File handling}
 
+In general: \xetex\ supports Unicode filenames, as long as all
+characters are on the Basic Multilingual Plane (character codes $\le$
+U+FFFF). Unfortunately, characters in higher planes are not
+supported in filenames.
+% https://tug.org/pipermail/tex-live/2023-November/049686.html
+
 \cmd|\creationdate|
 \desc{Expands to the date string \xetex\ uses in the \texttt{/Info}
 dictionary of the output PDF document. This corresponds to the date and
@@ -1465,6 +1471,10 @@ it is available in all engines. ASCII double quote characters
 (\texttt{"}) are removed from the filename, but it is otherwise left
 unchanged after tokenization.
 
+We say ``group-delimited'' because, as usual with \TeX\ arguments, the
+beginning and ending delimiters are any characters of catcode 1 and 2,
+respectively; they don't actually define a group.
+
 This extension is unlike most others in that it affects a primitive in
 standard \TeX\ (\cs{input}), rather than being related to a new
 primitive, command line option, etc. This is allowed because additional
@@ -1472,7 +1482,7 @@ methods of recognizing filenames are explicitly mentioned in
 \texttt{tex.web} as acceptable system-dependent extensions.
 
 Incidentally, this does not directly affect \LaTeX's \cs{input} command
-(which takes a group-delimited argument), as that is a macro
+(which also takes a group-delimited argument), as that is a macro
 redefinition of the \cs{input} primitive.}
 \endcmd
 
@@ -1518,14 +1528,18 @@ suppressed and the font control sequence being defined is set to
 
 \subsection{Invoking \xetex}
 
-\xetex\ has many command line options. They are almost all inherited
-from the common framework for \TeX\ engines as implemented in Web2C
-(its manual is available at \url{https://tug.org/web2c}).
+\xetex\ has many command line options and can use many environment
+variables and configuration file settings. They are almost all inherited
+from the common framework for \TeX\ engines as implemented in Web2C and
+Kpathsea. Their documentation is available at
+\url{https://tug.org/web2c} and \url{https://tug.org/kpathsea}.
 
-The main exceptions are \verb|-no-pdf|, which tells \xetex\ to output
-its XDV (extended DVI) without further processing, and
+The main \xetex-specific options are \verb|-no-pdf|, which tells \xetex\
+to output its XDV (extended DVI) without further processing, and
 \verb|-output-driver=|\xarg{cmd}, which processes the XDV output with
 \xarg{cmd}; the default is \texttt{xdvipdfmx}.
+
+% doc FONTCONFIG_FILE etc in texmf.cnf
 
 
 \section{Engine version}

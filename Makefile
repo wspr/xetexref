@@ -13,9 +13,8 @@ spell:
 	dw <$(doc) | grep -v ': a$$' || true
 	myspell $(doc)
 
-diff dif:
 reldir = /usr/local/texlive/dev/texmf-dist/doc/xetex/xetexref/
-diff dif:
+diff dif df:
 	-diff -u0 $(reldir)/xetex-reference.tex .
 
 pkg = xetexref
@@ -24,3 +23,4 @@ dist:
 	mkdir $(pkg)
 	ln -s ../Makefile ../README.txt ../$(doc) ../xetex-reference.pdf $(pkg)
 	zip -r $(pkg).zip $(pkg)
+	rm -rf $(pkg)
