@@ -1,6 +1,9 @@
-
+*.aux
+*.example
+*.log
+*.out
+*.pdf
+*.toc
+*.zip
 build/
 xetexref/
-*.zip
-*.pdf
-*.example

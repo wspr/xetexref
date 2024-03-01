@@ -238,14 +238,14 @@ This distinction between file name lookups and system font name lookups
 is crucial to understanding \xetex's behavior and to writing portable
 documents (in short: don't use system fonts).
 
-System font name lookups use (except on Mac~OS~X) the
+System font name lookups use, except on mac~OS, the
 |fontconfig| library; running |fc-list| should show you the font names
 available.  \Eg,
 \begin{quote}\small
 |\font\1="Liberation Serif"| \hfill \emph{look for OS-installed font}
 \end{quote}
 
-Fonts have many internal names, and XeTeX does the system font lookups
+Fonts have many internal names, and \xetex\ does the system font lookups
 in the following order:
 \vskip1ex
 \begin{itemize}
@@ -1414,11 +1414,9 @@ $2^{31} − 1$ will be returned.}
 
 \subsection{File handling}
 
-In general: \xetex\ supports Unicode filenames, as long as all
-characters are on the Basic Multilingual Plane (character codes $\le$
-U+FFFF). Unfortunately, characters in higher planes are not
-supported in filenames.
-% https://tug.org/pipermail/tex-live/2023-November/049686.html
+In general: \xetex\ supports Unicode filenames. Before the 2024 release,
+characters in filenames were restricted to be on the Basic Multilingual
+Plane (character codes $\le$ U+FFFF).
 
 \cmd|\creationdate|
 \desc{Expands to the date string \xetex\ uses in the \texttt{/Info}
@@ -1473,7 +1471,8 @@ unchanged after tokenization.
 
 We say ``group-delimited'' because, as usual with \TeX\ arguments, the
 beginning and ending delimiters are any characters of catcode 1 and 2,
-respectively; they don't actually define a group.
+respectively; they don't define a group that affects the semantic
+nesting level.
 
 This extension is unlike most others in that it affects a primitive in
 standard \TeX\ (\cs{input}), rather than being related to a new
