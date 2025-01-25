@@ -1217,7 +1217,7 @@ the horizontal list stored in \cs{box} \xarg{box number}.}
 All of the major (non-frozen) \TeX\ engines support most of the
 functionality described in this section, in one way or another, so that
 macro formats (e.g., \LaTeX) can make use of it. Please see the
-\pdftex\ manual for details (in \pdftex, all these primitive names
+\pdftex\ manual for details (in \pdftex, almost all these primitive names
 begin with \verb|\pdf...|).
 
 \subsection{Geometry}
@@ -1249,7 +1249,7 @@ begin with \verb|\pdf...|).
 \cmd|\expanded|
 \xarg{general text}
 \desc{Carries out full expansion of a token list like \texttt{\char`\\message},
-but it is still expandable.}
+but is itself expandable.}
 \endcmd
 
 \cmd|\ifincsname...[\else...]\fi|
@@ -1267,6 +1267,14 @@ but it is still expandable.}
 \desc{\tex conditional to test if a control sequence is a primitive
 which still has its primitive meaning, \ie, has not been redefined or
 undefined.}
+\endcmd
+
+\cmd|\ignoreprimitiveerror|
+\xarg{integer}
+\desc{If set to 1, the \texttt{Infinite glue shrinkage found in box
+being split} error becomes a warning. Other values reserved for future
+use. Enabled with the \verb|-etex| option, which is the default
+configuration.}
 \endcmd
 
 \cmd|\partokencontext|

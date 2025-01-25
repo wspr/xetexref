@@ -20,7 +20,7 @@ are required to be installed in your texmf tree and/or as system fonts:
 
 ## Legalities
 
-Copyright 2007-2023 Will Robertson
+Copyright 2007-2025 Will Robertson
 Copyright 2019      Hironobu Yamashita
 Copyright 2018      Joseph Wright
 Copyright 2011-2017 Karl Berry
