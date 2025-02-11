@@ -21,12 +21,7 @@
 \author{Will Robertson \and Khaled Hosny \and Karl Berry}
 \date{\today}
 
-\suppressfontnotfounderror=1
-\tracinglostchars=1
-
-\makeatletter
-\def\@dotsep{999}
-\makeatother
+\tracinglostchars=5
 
 \usepackage{refstyle} % must load before unicode-math with 2023 LaTeX.
 % https://tex.stackexchange.com/questions/675145
@@ -54,7 +49,7 @@
   AutoFakeSlant=.2]\fi
 \setmathfont{texgyrepagella-math.otf}
 
-\usepackage{calc,fancyvrb,hyperref,varioref,xcolor,hologo,xspace}
+\usepackage{calc,fancyvrb,hyperref,varioref,verbatim,xcolor,hologo,xspace}
 \usepackage{geometry}
 %\geometry{screen,margin=3cm}
 
@@ -1027,11 +1022,11 @@ aAa A a B aBa BB
 \desc{Specify whether \xetex is to perform normalisation on the input
 text and, if so, what type of normalisation to use. See
 \url{https://unicode.org/reports/tr15/} for a description of Unicode
-normalisation. The \<Integer> value can be:\medskip
+normalisation. The \<integer> value can be:\medskip
 \begin{optdesc}
 \item[0] (default) do not perform normalisation.
 \item[1] normalise to NFC form, using precomposed characters where possible
-         instead base characters with combining marks.
+         instead of base characters with combining marks.
 \item[2] normalise to NFD form, using base characters with combining marks
          instead of precomposed characters.
 \end{optdesc}}
@@ -1039,12 +1034,24 @@ normalisation. The \<Integer> value can be:\medskip
 
 \cmd|\XeTeXinputencoding|
 \xarg{charset name}
-\desc{Defines the input encoding of the following text.}
+
+\desc{Defines the input encoding of the following text. The argument is
+scanned like a filename, so can be surrounded by ASCII single or double
+quote characters, but braces should be avoided. If the name is not
+predefined, it is passed to the ICU routine \texttt{ucnv\char`_open}.
+Details are described at
+\url{https://tex.stackexchange.com/questions/324948/}, or see the source
+file \texttt{XeTeX\char`\_ext.c}, function
+\texttt{getencodingmodeandinfo}. A simple example:}
+\begin{example}
+\XeTeXinputencoding ISO-8859-1
+\end{example}
 \endcmd
 
 \cmd|\XeTeXdefaultencoding|
 \xarg{charset name}
-\desc{Defines the input encoding of subsequent files to be read.}
+\desc{Defines the input encoding of subsequent files to be read. Handled
+analogously to the above.}
 \endcmd
 
 \section{Line breaking}
@@ -1062,12 +1069,12 @@ allowed. Off, 0, by default.}
 
 \cmd|\XeTeXlinebreakskip|
 \xarg{glue}
-\desc{Inter-character linebreak stretch}
+\desc{Inter-character linebreak stretch.}
 \endcmd
 
 \cmd|\XeTeXlinebreakpenalty|
 \xarg{integer}
-\desc{Inter-character linebreak penalty}
+\desc{Inter-character linebreak penalty.}
 \endcmd
 
 \cmd|\XeTeXupwardsmode|
@@ -1214,7 +1221,7 @@ the horizontal list stored in \cs{box} \xarg{box number}.}
 
 \section{Cross-compatibility with other \TeX\ engines}
 
-All of the major (non-frozen) \TeX\ engines support most of the
+The major (non-frozen) \TeX\ engines support most of the
 functionality described in this section, in one way or another, so that
 macro formats (e.g., \LaTeX) can make use of it. Please see the
 \pdftex\ manual for details (in \pdftex, almost all these primitive names
@@ -1497,12 +1504,16 @@ redefinition of the \cs{input} primitive.}
 
 \cmd|\pdfmapfile|
 \barg{\xarg{map file}}
-\desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for \texttt{xdvipdfmx} to set a font map file. See the \pdftex user manual for full details.}
+\desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for
+\texttt{xdvipdfmx} to set a font map file. See the \pdftex user manual
+for full details.}
 \endcmd
 
 \cmd|\pdfmapline|
 \barg{\xarg{line from map file}}
-\desc{Defined in \texttt{xe(la)tex.ini} to place a whatsit special for \texttt{xdvipdfmx} to set up a font map. See the \pdftex user manual for full details.}
+\desc{Defined in \texttt{xe(la)texA.ini} to place a whatsit special for
+\texttt{xdvipdfmx} to set up a font map. See the \pdftex user manual for
+full details.}
 \endcmd
 
 \cmd|\tracinglostchars|
@@ -1532,6 +1543,24 @@ suppressed and the font control sequence being defined is set to
 \end{example}
 \endcmd
 
+\subsection{Output}
+
+\xetex\ outputs an extended DVI format, called XDV.  Normally, \xetex\
+internally invokes the program \texttt{xdvipdfmx} to generate PDF from
+this. This can be overridden with the command line options mentioned
+just below.
+
+Thus, the version of PDF format that gets output is controlled by
+\texttt{xdvipdfmx}, not \xetex\ directly. This is given in the
+configuration file \texttt{dvipdfmx.cfg}. However, \TeX\ documents can
+specify the output version with \cs{special} directives. For example, to
+generate PDF-1.4 output (the default is newer than this):
+
+\begin{verbatim}
+\special{pdf:majorversion:1}
+\special{pdf:minorversion:4}
+\end{verbatim}
+
 \subsection{Invoking \xetex}
 
 \xetex\ has many command line options and can use many environment
@@ -1545,8 +1574,14 @@ to output its XDV (extended DVI) without further processing, and
 \verb|-output-driver=|\xarg{cmd}, which processes the XDV output with
 \xarg{cmd}; the default is \texttt{xdvipdfmx}.
 
-% doc FONTCONFIG_FILE etc in texmf.cnf
+For a list of all command line options, run \texttt{xetex --help}.
+Its current output is give below, for reference:
 
+\begin{footnotesize}
+\verbatiminput{helpmsg.txt}
+\end{footnotesize}
+
+% qqq doc FONTCONFIG_FILE etc in texmf.cnf
 
 \section{Engine version}
 

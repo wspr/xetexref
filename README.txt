@@ -1,12 +1,15 @@
 # The XETEXREF documentation
 
-This package is a semi-official reference document for XeTeX.
-(It has not been reviewed by the XeTeX maintainers.)
+This package is a semi-official reference document for XeTeX,
+but has not been reviewed by the XeTeX maintainers.
 It is not a user manual; it simply attempts to list XeTeX's
 extended features and interfaces.
 
 Developed at: <https://github.com/wspr/xetexref>
 Released at:  <https://ctan.org/pkg/xetexref>
+Mailing list: <https://lists.tug.org/xetex>
+
+Bug reports, suggestions, improvements are welcome.
 
 ## Compilation
 

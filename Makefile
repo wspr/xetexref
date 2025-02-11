@@ -21,6 +21,8 @@ pkg = xetexref
 dist:
 	rm -rf $(pkg) $(pkg).zip
 	mkdir $(pkg)
-	ln -s ../Makefile ../README.txt ../$(doc) ../xetex-reference.pdf $(pkg)
+	ln -s ../Makefile ../README.txt ../$(doc) ../xetex-reference.pdf \
+	      ../helpmsg.txt ../tryxefonts.tex \
+	      $(pkg)
 	zip -r $(pkg).zip $(pkg)
 	rm -rf $(pkg)
